@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+
+X = [[1,2],[2,3],[3,4],[6,7],[7,8],[8,9]]
+y = [0,0,0,1,1,1]
+
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit(X, y)
+
+p = [4,5]
+print("Predicted Class:", model.predict([p])[0])
+
+plt.scatter([a[0] for a in X], [a[1] for a in X], c=y)
+plt.scatter(p[0], p[1], color='red', marker='*', s=200)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("KNN Classification")
+plt.show()
