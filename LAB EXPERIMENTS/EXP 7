@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+
+data = load_iris()
+X = data.data[:, :2]
+y = data.target
+
+model = LogisticRegression(max_iter=200)
+model.fit(X, y)
+p = model.predict(X)
+
+print("Accuracy:", model.score(X, y))
+
+plt.scatter(X[:, 0], X[:, 1], c=p, cmap='viridis')
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.title("Logistic Regression Classification")
+plt.show()
