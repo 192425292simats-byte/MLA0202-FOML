@@ -1,20 +1,42 @@
+
 import matplotlib.pyplot as plt
-from sklearn.mixture import GaussianMixture
-from sklearn.datasets import make_blobs
 
-X, y = make_blobs(n_samples=100, centers=3, random_state=42)
+data = [1, 2, 3, 8, 9, 10]
 
-model = GaussianMixture(n_components=3, random_state=42)
-model.fit(X)
-labels = model.predict(X)
+mean1 = 2
+mean2 = 9
 
-print("Cluster Labels:", labels)
-print("Means:\n", model.means_)
+for i in range(5):
+    cluster1 = []
+    cluster2 = []
 
-plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
-plt.scatter(model.means_[:, 0], model.means_[:, 1],
-            color='red', marker='X', s=200)
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.title("Expectation-Maximization Clustering")
+    for x in data:
+        if abs(x - mean1) < abs(x - mean2):
+            cluster1.append(x)
+        else:
+            cluster2.append(x)
+
+    mean1 = sum(cluster1) / len(cluster1)
+    mean2 = sum(cluster2) / len(cluster2)
+
+print("Cluster 1:", cluster1)
+print("Cluster 2:", cluster2)
+print("Mean 1:", mean1)
+print("Mean 2:", mean2)
+
+plt.scatter(cluster1, [1] * len(cluster1),
+            color="blue", label="Cluster 1")
+plt.scatter(cluster2, [2] * len(cluster2),
+            color="red", label="Cluster 2")
+
+plt.scatter([mean1], [1], color="black", marker="x",
+            s=150, label="Cluster Means")
+plt.scatter([mean2], [2], color="black", marker="x", s=150)
+
+plt.xlabel("Data Values")
+plt.ylabel("Clusters")
+plt.title("Expectation Maximization - Clustering")
+plt.yticks([1, 2], ["Cluster 1", "Cluster 2"])
+plt.legend()
+plt.grid(True)
 plt.show()
