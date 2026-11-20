@@ -1,0 +1,19 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
+import matplotlib.pyplot as plt
+X,y = load_iris(return_X_y=True)
+a,b,c,d = train_test_split(X,y,test_size=0.3,random_state=42)
+models = [KNeighborsClassifier(), GaussianNB(), DecisionTreeClassifier()]
+names = ['KNN','Naive Bayes','Decision Tree']
+scores = []
+for m in models:
+    m.fit(a,c)
+    scores.append(accuracy_score(d,m.predict(b))*100)
+plt.bar(names,scores)
+plt.ylabel("Accuracy")
+plt.show()
+print(scores)
