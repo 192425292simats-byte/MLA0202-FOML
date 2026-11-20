@@ -1,0 +1,16 @@
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+X = [[25,50000],[30,60000],[35,70000],[40,80000],
+     [22,20000],[28,25000],[45,30000],[50,35000]]
+y = [1,1,1,1,0,0,0,0]
+a,b,c,d = train_test_split(X,y,test_size=0.25,random_state=42)
+model = GaussianNB()
+model.fit(a,c)
+pred = model.predict(b)
+print("Accuracy:", accuracy_score(d,pred)*100)
+print("Loan Prediction:", model.predict([[32,65000]])[0])
+plt.bar(["Rejected","Approved"],[sum(pred==0),sum(pred==1)])
+plt.title("Bank Loan Prediction")
+plt.show()
