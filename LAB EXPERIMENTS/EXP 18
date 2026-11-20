@@ -1,0 +1,16 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Perceptron
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+X, y = load_iris(return_X_y=True)
+a, b, c, d = train_test_split(X, y, test_size=0.3, random_state=42)
+model = Perceptron(max_iter=1000)
+model.fit(a, c)
+pred = model.predict(b)
+print("Accuracy:", accuracy_score(d, pred)*100)
+plt.scatter(b[:,0], b[:,1], c=pred)
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.title("IRIS Classification")
+plt.show()
